@@ -4,11 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
+  "start": "serve -s dist",
+  "build": "tsc -b && vite build",
+  "prebuild": "chmod +x node_modules/.bin/vite"
+},
   "dependencies": {
     "lucide-react": "^0.441.0",
     "react": "^18.3.1",
