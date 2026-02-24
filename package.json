@@ -4,10 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-  "start": "serve -s dist",
-  "prebuild": "chmod +x node_modules/.bin/tsc && chmod +x node_modules/.bin/vite",
-  "build": "npx tsc -b && npx vite build"
-},
+    "start": "serve -s dist",
+    "prebuild": "chmod +x node_modules/.bin/tsc && chmod +x node_modules/.bin/vite && chmod +x node_modules/**/esbuild/bin/esbuild",
+    "build": "npx tsc -b && npx vite build"
+  },
   "dependencies": {
     "lucide-react": "^0.441.0",
     "react": "^18.3.1",
