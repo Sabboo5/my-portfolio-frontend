@@ -13,8 +13,7 @@ const PUBLIC_KEY = 'ohzwQaPq3-kx7eGA4';
 const initialFormData: ContactFormData = {
   name: '',
   email: '',
-  subject: '',
-  message: '',
+  message: '', // removed subject
 };
 
 export default function Contact() {
@@ -37,15 +36,14 @@ export default function Contact() {
       await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
         from_name: formData.name,
         from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
+        message: formData.message, // no subject
       }, PUBLIC_KEY);
 
       setStatus('success');
       setFormData(initialFormData);
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
-      console.error(error);
+      console.error('EmailJS error:', error);
       setStatus('error');
       setErrorMessage('Failed to send message. Please try again.');
     }
@@ -149,20 +147,6 @@ export default function Contact() {
                       placeholder="your@email.com"
                     />
                   </div>
-                </div>
-
-                <div className="mb-4">
-                  <label htmlFor="subject" className="block mb-2 text-sm font-medium text-dark-300">Subject</label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="input-field"
-                    placeholder="What's this about?"
-                  />
                 </div>
 
                 <div className="mb-6">
