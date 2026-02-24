@@ -4,11 +4,16 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-  "start": "serve -s dist",
-  "build": "tsc -b && vite build",
-  "prebuild": "chmod +x node_modules/.bin/vite"
-},
+    "dev": "vite",
+    "prebuild": "chmod +x node_modules/.bin/vite",
+    "build": "tsc -b && npx vite build",
+    "start": "serve -s dist",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@sendgrid/mail": "^8.1.6",
     "lucide-react": "^0.441.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
