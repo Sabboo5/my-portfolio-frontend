@@ -3,9 +3,12 @@ import { Mail, MapPin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-re
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { personalInfo, socialLinks } from '../utils/data';
 import type { ContactFormData } from '../types';
+import emailjs from '@emailjs/browser';
 
-// Get backend URL from environment variable
-const API_URL =`https://sabonamisg-portfolio-backend-2.onrender.com/api/contact`
+// EmailJS credentials
+const SERVICE_ID = 'YOUR_SERVICE_ID';
+const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
 
 const initialFormData: ContactFormData = {
   name: '',
@@ -31,26 +34,20 @@ export default function Contact() {
     setErrorMessage('');
 
     try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to send message');
-      }
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      }, PUBLIC_KEY);
 
       setStatus('success');
       setFormData(initialFormData);
-
-      // Reset success message after 5 seconds
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
+      console.error(error);
       setStatus('error');
-      setErrorMessage(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
+      setErrorMessage('Failed to send message. Please try again.');
     }
   };
 
