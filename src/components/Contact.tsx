@@ -5,7 +5,8 @@ import { personalInfo, socialLinks } from '../utils/data';
 import type { ContactFormData } from '../types';
 
 // Get backend URL from environment variable
-const API_URL = https://sabonam.onrender.com/api/contact
+const API_URL =https://sabonamisg-portfolio-backend-2.onrender.com/api/contact
+
 const initialFormData: ContactFormData = {
   name: '',
   email: '',
