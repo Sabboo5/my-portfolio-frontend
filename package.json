@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "serve -s dist",
-    "build": "npx tsc -b && npx vite build"
+    "build": "npx --yes tsc -b && npx --yes vite build"
   },
   "dependencies": {
     "lucide-react": "^0.441.0",
