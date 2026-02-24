@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "start": "serve -s dist",
-    "prebuild": "chmod +x node_modules/.bin/tsc && chmod +x node_modules/.bin/vite && chmod +x node_modules/**/esbuild/bin/esbuild",
     "build": "npx tsc -b && npx vite build"
   },
   "dependencies": {
