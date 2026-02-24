@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "serve -s dist",
-    "build": "npx tsc -b && npx vite build"
+    "build": "npx tsc -b && npx vite build",
+    "postinstall": "npm rebuild esbuild"
   },
   "dependencies": {
     "lucide-react": "^0.441.0",
