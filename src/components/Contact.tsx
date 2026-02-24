@@ -5,8 +5,7 @@ import { personalInfo, socialLinks } from '../utils/data';
 import type { ContactFormData } from '../types';
 
 // Get backend URL from environment variable
-const API_URL = import.meta.env.VITE_API_URL;
-
+const API_URL = https://sabonam.onrender.com/api/contact
 const initialFormData: ContactFormData = {
   name: '',
   email: '',
@@ -31,7 +30,7 @@ export default function Contact() {
     setErrorMessage('');
 
     try {
-      const response = await fetch(`${API_URL}/contact`, {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
