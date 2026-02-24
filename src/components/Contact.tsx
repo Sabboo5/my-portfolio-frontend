@@ -6,9 +6,9 @@ import type { ContactFormData } from '../types';
 import emailjs from '@emailjs/browser';
 
 // EmailJS credentials
-const SERVICE_ID = 'YOUR_SERVICE_ID';
-const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+const SERVICE_ID = 'service_tt0gz6m';
+const TEMPLATE_ID = 'template_8431n7';
+const PUBLIC_KEY = 'ohzwQaPq3-kx7eGA4';
 
 const initialFormData: ContactFormData = {
   name: '',
