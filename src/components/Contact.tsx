@@ -2,36 +2,36 @@ import { useState } from 'react';
 import { Mail, MapPin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { personalInfo, socialLinks } from '../utils/data';
-import emailjs from '@emailjs/browser';
-
-// EmailJS credentials
-const SERVICE_ID = 'service_tt0gz6m';
-const TEMPLATE_ID = 'template_8431nc7';
-const PUBLIC_KEY = 'ohzwQaPq3-kx7eGA4';
 
 export default function Contact() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const { ref, inView } = useScrollAnimation();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('loading');
     setErrorMessage('');
 
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.currentTarget, PUBLIC_KEY)
-      .then((response) => {
-        console.log('EmailJS response:', response); // logs success details
-        setStatus('success');
-        e.currentTarget.reset(); // clear form inputs
-        setTimeout(() => setStatus('idle'), 5000);
-      })
-      .catch((err) => {
-        console.error('EmailJS error full details:', err); // logs exact error
-        alert(`Email failed: ${err.text || JSON.stringify(err)}`); // optional alert
-        setStatus('error');
-        setErrorMessage('Failed to send message. Check console for details.');
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/sebonamisgana@gmail.com', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' },
       });
+
+      if (!response.ok) throw new Error(`Network error: ${response.statusText}`);
+
+      setStatus('success');
+      e.currentTarget.reset();
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (error: any) {
+      console.error('Formsubmit error:', error);
+      setStatus('error');
+      setErrorMessage('Failed to send message. Check console for details.');
+    }
   };
 
   return (
@@ -111,7 +111,7 @@ export default function Contact() {
                     <input
                       type="text"
                       id="name"
-                      name="from_name"
+                      name="name"
                       placeholder="Your name"
                       required
                       className="input-field"
@@ -122,7 +122,7 @@ export default function Contact() {
                     <input
                       type="email"
                       id="email"
-                      name="from_email"
+                      name="email"
                       placeholder="your@email.com"
                       required
                       className="input-field"
