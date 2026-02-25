@@ -124,7 +124,7 @@ export default function Contact() {
 
                 <div className="mb-6">
                   <label htmlFor="subject" className="block mb-2 text-sm font-medium text-dark-300">Subject</label>
-                  <input type="text" id="subject" name="subject" defaultValue="Portfolio Inquiry" required className="input-field" />
+                  <input type="text" id="subject" name="subject" required className="input-field" />
 
                   <label htmlFor="message" className="block mb-2 text-sm font-medium text-dark-300 mt-4">Message</label>
                   <textarea id="message" name="message" placeholder="Your message..." required rows={5} className="resize-none input-field" />
