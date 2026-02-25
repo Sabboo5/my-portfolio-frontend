@@ -21,15 +21,16 @@ export default function Contact() {
 
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.currentTarget, PUBLIC_KEY)
       .then((response) => {
-        console.log('EmailJS response:', response);
+        console.log('EmailJS response:', response); // logs success details
         setStatus('success');
-        e.currentTarget.reset(); // Clear inputs
+        e.currentTarget.reset(); // clear form inputs
         setTimeout(() => setStatus('idle'), 5000);
       })
       .catch((err) => {
-        console.error('EmailJS error details:', err);
+        console.error('EmailJS error full details:', err); // logs exact error
+        alert(`Email failed: ${err.text || JSON.stringify(err)}`); // optional alert
         setStatus('error');
-        setErrorMessage('Failed to send message. Please try again.');
+        setErrorMessage('Failed to send message. Check console for details.');
       });
   };
 
