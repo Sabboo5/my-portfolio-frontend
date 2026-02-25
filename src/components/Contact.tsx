@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Mail, MapPin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { personalInfo, socialLinks } from '../utils/data';
-import type { ContactFormData } from '../types';
 import emailjs from '@emailjs/browser';
 
 // EmailJS credentials
@@ -10,39 +9,25 @@ const SERVICE_ID = 'service_tt0gz6m';
 const TEMPLATE_ID = 'template_8431n7';
 const PUBLIC_KEY = 'ohzwQaPq3-kx7eGA4';
 
-// Default form data
-const initialFormData: ContactFormData = {
-  name: '',
-  email: '',
-  message: '',
-  subject: 'Portfolio Inquiry',
-};
-
 export default function Contact() {
-  const [formData, setFormData] = useState<ContactFormData>(initialFormData);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const { ref, inView } = useScrollAnimation();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('loading');
     setErrorMessage('');
 
-    // sendForm maps input 'name' attributes directly to template variables
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.currentTarget, PUBLIC_KEY)
-      .then(() => {
+      .then((response) => {
+        console.log('EmailJS response:', response);
         setStatus('success');
-        setFormData(initialFormData);
+        e.currentTarget.reset(); // Clear inputs
         setTimeout(() => setStatus('idle'), 5000);
       })
       .catch((err) => {
-        console.error('EmailJS error:', err);
+        console.error('EmailJS error details:', err);
         setStatus('error');
         setErrorMessage('Failed to send message. Please try again.');
       });
@@ -126,11 +111,9 @@ export default function Contact() {
                       type="text"
                       id="name"
                       name="from_name"
-                      value={formData.name}
-                      onChange={handleChange}
+                      placeholder="Your name"
                       required
                       className="input-field"
-                      placeholder="Your name"
                     />
                   </div>
                   <div>
@@ -139,11 +122,9 @@ export default function Contact() {
                       type="email"
                       id="email"
                       name="from_email"
-                      value={formData.email}
-                      onChange={handleChange}
+                      placeholder="your@email.com"
                       required
                       className="input-field"
-                      placeholder="your@email.com"
                     />
                   </div>
                 </div>
@@ -154,8 +135,7 @@ export default function Contact() {
                     type="text"
                     id="subject"
                     name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
+                    defaultValue="Portfolio Inquiry"
                     required
                     className="input-field"
                   />
@@ -164,12 +144,10 @@ export default function Contact() {
                   <textarea
                     id="message"
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
+                    placeholder="Your message..."
                     required
                     rows={5}
                     className="resize-none input-field"
-                    placeholder="Your message..."
                   />
                 </div>
 
