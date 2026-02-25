@@ -10,10 +10,12 @@ const SERVICE_ID = 'service_tt0gz6m';
 const TEMPLATE_ID = 'template_8431n7';
 const PUBLIC_KEY = 'ohzwQaPq3-kx7eGA4';
 
+// Default form data
 const initialFormData: ContactFormData = {
   name: '',
   email: '',
-  message: '', // removed subject
+  message: '',
+  subject: 'Portfolio Inquiry',
 };
 
 export default function Contact() {
@@ -27,26 +29,23 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('loading');
     setErrorMessage('');
 
-    try {
-      await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-        from_name: formData.name,
-        from_email: formData.email,
-        message: formData.message, // no subject
-      }, PUBLIC_KEY);
-
-      setStatus('success');
-      setFormData(initialFormData);
-      setTimeout(() => setStatus('idle'), 5000);
-    } catch (error) {
-      console.error('EmailJS error:', error);
-      setStatus('error');
-      setErrorMessage('Failed to send message. Please try again.');
-    }
+    // sendForm maps input 'name' attributes directly to template variables
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.currentTarget, PUBLIC_KEY)
+      .then(() => {
+        setStatus('success');
+        setFormData(initialFormData);
+        setTimeout(() => setStatus('idle'), 5000);
+      })
+      .catch((err) => {
+        console.error('EmailJS error:', err);
+        setStatus('error');
+        setErrorMessage('Failed to send message. Please try again.');
+      });
   };
 
   return (
@@ -126,7 +125,7 @@ export default function Contact() {
                     <input
                       type="text"
                       id="name"
-                      name="name"
+                      name="from_name"
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -139,7 +138,7 @@ export default function Contact() {
                     <input
                       type="email"
                       id="email"
-                      name="email"
+                      name="from_email"
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -150,7 +149,18 @@ export default function Contact() {
                 </div>
 
                 <div className="mb-6">
-                  <label htmlFor="message" className="block mb-2 text-sm font-medium text-dark-300">Message</label>
+                  <label htmlFor="subject" className="block mb-2 text-sm font-medium text-dark-300">Subject</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    className="input-field"
+                  />
+
+                  <label htmlFor="message" className="block mb-2 text-sm font-medium text-dark-300 mt-4">Message</label>
                   <textarea
                     id="message"
                     name="message"
