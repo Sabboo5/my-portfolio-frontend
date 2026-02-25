@@ -6,7 +6,7 @@ import emailjs from '@emailjs/browser';
 
 // EmailJS credentials
 const SERVICE_ID = 'service_tt0gz6m';
-const TEMPLATE_ID = 'template_8431n7';
+const TEMPLATE_ID = 'template_8431nc7';
 const PUBLIC_KEY = 'ohzwQaPq3-kx7eGA4';
 
 export default function Contact() {
