@@ -6,9 +6,9 @@ export const personalInfo = {
   tagline: 'Full-Stack Developer',
   email: 'sebonamisgana@gmail.com',
   location: 'Addis Ababa, Ethiopia',
-  bio: `I'm a passionate Software Engineering Graduate with a strong foundation in full-stack development.
+ bio: `I'm a passionate Software Engineering Graduate with a strong foundation in full-stack development.
 I love building scalable web applications and creating exceptional user experiences.
-I am currently pursuing my degree while working on exciting projects that solve real-world problems.`,
+I have completed my degree while working on exciting projects that solve real-world problems.`,
   resumeUrl: '/resume.pdf',
 };
 
