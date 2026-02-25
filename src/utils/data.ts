@@ -120,8 +120,7 @@ export const projects: Project[] = [
   {
     id: 5,
     title: 'Expense Tracker Application',
-    description:
-    'Tired of guessing your daily spending? Record every expense quickly and see instant updates on your budget. Analyze trends with interactive charts and detailed financial reports. Take charge of your money, reach goals, and reduce financial stress. , 
+    description: 'Tired of guessing your daily spending? Record every expense quickly and see instant updates on your budget. Analyze trends with interactive charts and detailed financial reports. Take charge of your money, reach goals, and reduce financial stress.' , 
      image: 'https://media.istockphoto.com/id/1389342737/photo/track-your-spending-is-shown-on-the-photo-using-the-text.jpg?s=1024x1024&w=is&k=20&c=QVzGSh77dccB8Pzndw6ApSkWHmnA_pPLFvelAkBcfYA=',
     technologies: ['React', 'Node.js', 'Typescript', 'MongoDB','Chart.js'],
     githubUrl: 'https://github.com/Sabboo5/expense-tracker',
