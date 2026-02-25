@@ -1,22 +1,25 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Mail, MapPin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { personalInfo, socialLinks } from '../utils/data';
 
 export default function Contact() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const { ref, inView } = useScrollAnimation();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
     setErrorMessage('');
 
-    const formData = new FormData(e.currentTarget);
+    if (!formRef.current) return;
+
+    const formData = new FormData(formRef.current);
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/sebonamisgana@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/yourrealemail@gmail.com', {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' },
@@ -25,19 +28,22 @@ export default function Contact() {
       if (!response.ok) throw new Error(`Network error: ${response.statusText}`);
 
       setStatus('success');
-      e.currentTarget.reset();
+      formRef.current.reset(); // safely reset form
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error: any) {
       console.error('Formsubmit error:', error);
       setStatus('error');
-      setErrorMessage('Failed to send message. Check console for details.');
+      setErrorMessage(error.message || 'Failed to send message.');
     }
   };
 
   return (
     <section id="contact" className="py-20 md:py-32 bg-dark-900/30">
       <div className="section-container">
-        <div className={`transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} ref={ref}>
+        <div
+          className={`transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+          ref={ref}
+        >
           {/* Section Header */}
           <div className="mb-16 text-center">
             <h2 className="section-title">
@@ -104,53 +110,28 @@ export default function Contact() {
 
             {/* Contact Form */}
             <div className={`transition-all duration-700 delay-300 ${inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-              <form onSubmit={handleSubmit} className="card">
+              <form ref={formRef} onSubmit={handleSubmit} className="card">
                 <div className="grid gap-4 mb-4 sm:grid-cols-2">
                   <div>
                     <label htmlFor="name" className="block mb-2 text-sm font-medium text-dark-300">Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      placeholder="Your name"
-                      required
-                      className="input-field"
-                    />
+                    <input type="text" id="name" name="name" placeholder="Your name" required className="input-field" />
                   </div>
                   <div>
                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-dark-300">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder="your@email.com"
-                      required
-                      className="input-field"
-                    />
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required className="input-field" />
                   </div>
                 </div>
 
                 <div className="mb-6">
                   <label htmlFor="subject" className="block mb-2 text-sm font-medium text-dark-300">Subject</label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    defaultValue="Portfolio Inquiry"
-                    required
-                    className="input-field"
-                  />
+                  <input type="text" id="subject" name="subject" defaultValue="Portfolio Inquiry" required className="input-field" />
 
                   <label htmlFor="message" className="block mb-2 text-sm font-medium text-dark-300 mt-4">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    placeholder="Your message..."
-                    required
-                    rows={5}
-                    className="resize-none input-field"
-                  />
+                  <textarea id="message" name="message" placeholder="Your message..." required rows={5} className="resize-none input-field" />
                 </div>
+
+                {/* Honeypot (invisible) */}
+                <input type="text" name="_honey" style={{ display: 'none' }} />
 
                 {/* Status Messages */}
                 {status === 'success' && (
@@ -167,20 +148,14 @@ export default function Contact() {
                   </div>
                 )}
 
-                <button
-                  type="submit"
-                  disabled={status === 'loading'}
-                  className="w-full gap-2 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-                >
+                <button type="submit" disabled={status === 'loading'} className="w-full gap-2 btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
                   {status === 'loading' ? (
                     <>
-                      <Loader2 size={18} className="animate-spin" />
-                      Sending...
+                      <Loader2 size={18} className="animate-spin" /> Sending...
                     </>
                   ) : (
                     <>
-                      <Send size={18} />
-                      Send Message
+                      <Send size={18} /> Send Message
                     </>
                   )}
                 </button>
