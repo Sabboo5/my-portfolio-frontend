@@ -109,6 +109,20 @@ export const projects: Project[] = [
     technologies: ['React', 'Node.js', 'TypeScript', 'MongoDB', 'Chart.js'],
     githubUrl: 'https://github.com/Sabboo5/expense-tracker',
   },
+
+
+  {
+    id: 6,
+    title: 'Hospital Management System',
+    description:
+      'Simplify hospital management with secure patient data, appointment scheduling, and staff oversight. Improve workflow, track medical histories, and deliver better healthcare efficiently.',
+    image: 'https://plus.unsplash.com/premium_vector-1726062951888-c5a9a373b394?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGhvc3BpdGFsJTIwbWFuYWdlbWVudHxlbnwwfHwwfHx8MA%3D%3D',
+    technologies: ['React', 'Node.js', 'TypeScript', 'MongoDB'],
+    githubUrl: 'https://github.com/Sabboo5/Hospital-system',
+  },
+  
+
+  
 ];
 
 export const experiences: Experience[] = [
@@ -156,6 +170,8 @@ export const experiences: Experience[] = [
     ],
     type: 'education',
   },
+
+
 ];
 
 export const navLinks = [
