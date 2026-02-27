@@ -103,7 +103,7 @@ export default function About() {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-6 pt-8 mt-8 border-t border-dark-700">
                 <div>
-                  <div className="text-3xl font-bold gradient-text">5+</div>
+                  <div className="text-3xl font-bold gradient-text">6+</div>
                   <div className="text-sm text-dark-400">Projects Completed</div>
                 </div>
                 <div>
@@ -111,7 +111,7 @@ export default function About() {
                   <div className="text-sm text-dark-400">Years Experience</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold gradient-text">10+</div>
+                  <div className="text-3xl font-bold gradient-text">15+</div>
                   <div className="text-sm text-dark-400">Technologies</div>
                 </div>
               </div>
