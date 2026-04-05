@@ -19,11 +19,10 @@ export default function Contact() {
     const formData = new FormData(formRef.current);
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/sebonamisgana@gmail.com', {
+      const response = await fetch('https://formsubmit.co/sebonamisgana@gmail.com', {
         method: 'POST',
         body: formData,
-        headers: { 'Accept': 'application/json' },
-      });
+       });
 
       if (!response.ok) throw new Error(`Network error: ${response.statusText}`);
 
@@ -126,7 +125,7 @@ export default function Contact() {
                   <label htmlFor="subject" className="block mb-2 text-sm font-medium text-dark-300">Subject</label>
                   <input type="text" id="subject" name="subject" required className="input-field" />
 
-                  <label htmlFor="message" className="block mb-2 text-sm font-medium text-dark-300 mt-4">Message</label>
+                  <label htmlFor="message" className="block mt-4 mb-2 text-sm font-medium text-dark-300">Message</label>
                   <textarea id="message" name="message" placeholder="Your message..." required rows={5} className="resize-none input-field" />
                 </div>
 
